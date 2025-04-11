@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test mst</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .text {
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .video-part {
+            height: 35px;
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        .video-part video {
+            width: 400px;
+            height: 200px;
+            position: absolute;
+            object-fit: cover;
+            object-position: center;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .video-part-1 video {
+            top: 0;
+        }
+
+        .video-part-2 video {
+            top: -50px;
+        }
+
+        .video-part-3 video {
+            top: -100px;
+        }
+
+        .video-part-4 video {
+            top: -150px;
+        }
+
+        @media (max-width: 633px) {
+          .text {
+            font-size: 30px;
+          }
+
+          .video-part {
+            height: 20px;
+            max-width: 200px;
+          }
+        }
+
+        @media (max-width: 443px) {
+          .text {
+            font-size: 25px;
+          }
+
+          .video-part {
+            height: 15px;
+            max-width: 100px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text">
+            We’re here <span class="video-part video-part-1" style="width: 150px"><video muted loop><source src="video.mp4" type="video/mp4"></video></span> to make<br>
+            healthy <span class="video-part video-part-2" style="width: 50px;"><video muted loop><source src="video.mp4" type="video/mp4"></video></span> living effortless,<br>
+            so you can <span class="video-part video-part-3" style="width: 100px;"><video muted loop><source src="video.mp4" type="video/mp4"></video></span> live longer<br>
+            and happier <span class="video-part video-part-4" style="width: 300px;"><video muted loop><source src="video.mp4" type="video/mp4"></video></span>
+        </div>
+    </div>
+
+    <script>
+        const videos = document.querySelectorAll('.video-part video');
+
+        function syncVideos() {
+            videos.forEach(video => {
+                video.currentTime = 0;
+                video.play();
+            });
+        }
+
+        videos[0].addEventListener('loadedmetadata', () => {
+            syncVideos();
+        });
+
+        videos.forEach(video => {
+            video.addEventListener('ended', () => {
+                syncVideos();
+            });
+        });
+    </script>
+</body>
+</html>
